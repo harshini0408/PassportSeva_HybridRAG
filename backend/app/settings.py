@@ -27,6 +27,9 @@ class AppSettings:
     evidence_passages: int = 4
     default_mode: str = "hybrid"
     tracker_url: str = DEFAULT_TRACKER_URL
+    # Hybrid (the default) never touches the cross-encoder, so it is not loaded at
+    # startup unless PASSPORT_WARM_RERANKER=1. mode="rerank" still loads it lazily.
+    warm_reranker: bool = False
 
     @property
     def groq_configured(self) -> bool:
@@ -45,5 +48,6 @@ def load_app_settings() -> AppSettings:
         max_question_chars=int(env("PASSPORT_MAX_QUESTION_CHARS") or 500),
         evidence_passages=int(env("PASSPORT_EVIDENCE_PASSAGES") or 4),
         tracker_url=(env("PASSPORT_TRACKER_URL") or DEFAULT_TRACKER_URL).strip(),
+        warm_reranker=(env("PASSPORT_WARM_RERANKER") or "").strip().lower() in ("1", "true", "yes"),
     )
 

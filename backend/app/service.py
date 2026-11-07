@@ -102,9 +102,10 @@ class AskService:
                 return True
             try:
                 r = self._factory(self.rag_settings)
-                if warm:  # load the embedder and the reranker now, not on the first request
+                if warm:  # load the embedder now (hybrid needs it), not on the first request
                     r.semantic("warm up", 1)
-                    r.reranker.predict([("warm up", "warm up")])
+                    if self.s.warm_reranker:  # optional: hybrid never uses the cross-encoder
+                        r.reranker.predict([("warm up", "warm up")])
                 self._retriever, self._index_error = r, None
                 return True
             except IndexError_ as exc:

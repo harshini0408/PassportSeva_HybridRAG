@@ -188,3 +188,33 @@ Or copy the APK to the phone and open it. Manual checks: app opens with Vite sto
 
 ### Rebuilding after the IP or backend URL changes
 The URL is baked in at build time. Set the new `VITE_API_BASE_URL`, then rerun `npm run build`, `npx cap sync android`, `.\gradlew.bat assembleDebug` and copy the APK again.
+
+## Deploying Backend to Render (Python Web Service)
+
+The backend can be deployed directly to Render as a Python Web Service. Keep the service root at the repository root (`.`) because `data/` is located beside `backend/`.
+
+### 1. Render Service Settings
+- **Environment**: Python
+- **Root Directory**: `.` (leave empty or set to repository root)
+- **Build Command**: `python scripts/render_build.py`
+- **Start Command**: `uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT --workers 1`
+- **Health Check Path**: `/api/health`
+
+### 2. Environment Variables in Render Dashboard
+- `PYTHON_VERSION`: `3.11.7`
+- `GROQ_API_KEY`: *(required)* Your Groq secret API key.
+- `HF_HOME`: `.cache/huggingface` (persists cached model downloads in the build directory).
+- `HF_HUB_DISABLE_SYMLINKS_WARNING`: `1`
+- `TOKENIZERS_PARALLELISM`: `false`
+- `CORS_ALLOW_ORIGINS`: `https://localhost,capacitor://localhost,http://localhost:5173` (add your deployed frontend domain).
+- `PASSPORT_WARM_RERANKER`: `0` (keeps hybrid as default; avoids loading the cross-encoder into RAM at startup).
+
+### 3. Sizing & Memory Concerns
+- **Measured RAM**:
+  - Python + FastAPI base: ~32 MB
+  - With Embedder (`all-MiniLM-L6-v2`) warmed up (Hybrid): ~538 MB
+  - With Reranker (`ms-marco-MiniLM-L-6-v2`) loaded: ~636 MB
+- **Instance Recommendation**:
+  - Render Free Tier has a strict **512 MB limit**. Running PyTorch on CPU exceeds 512 MB during warm-up/search (~538 MB), triggering OOM restarts (`Exit 137`).
+  - Use a **Starter (512 MB with swap) or Standard (1 GB+ RAM)** instance for reliable production operation.
+  - Run with **1 Uvicorn worker** (`--workers 1`) to avoid duplicating PyTorch model weights in memory.

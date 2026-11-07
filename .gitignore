@@ -5,6 +5,7 @@
 
 # python
 .venv/
+venv/
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -12,6 +13,29 @@ __pycache__/
 # generated retrieval index (rebuild with: python -m app.rag.cli build)
 data/passport_seva/index/
 
+# model downloads cached by the Render build (HF_HOME defaults here)
+.cache/
+
 # frontend
 node_modules/
+frontend/dist/
 
+# mobile builds: APKs and Android build output are never committed
+*.apk
+*.aab
+frontend/android/build/
+frontend/android/app/build/
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/captures/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
