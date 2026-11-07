@@ -21,9 +21,11 @@ _spec.loader.exec_module(rb)  # type: ignore[union-attr]
 
 # ------------------------------------------------------------------ build script
 def test_model_cache_defaults_inside_the_project_and_honours_hf_home(tmp_path):
-    assert rb.model_cache_dir(tmp_path, {}) == tmp_path / ".cache" / "huggingface"
-    assert rb.model_cache_dir(tmp_path, {"HF_HOME": "/x/y"}) == Path("/x/y")
-    assert rb.model_cache_dir(tmp_path, {"HF_HOME": ""}) == tmp_path / ".cache" / "huggingface"
+    assert rb.model_cache_dir(tmp_path, {}) == (tmp_path / ".cache" / "huggingface").resolve()
+    assert rb.model_cache_dir(tmp_path, {"HF_HOME": str(Path("/x/y"))}) == Path("/x/y").resolve()
+    assert rb.model_cache_dir(tmp_path, {"HF_HOME": ""}) == (tmp_path / ".cache" / "huggingface").resolve()
+    # Relative path is resolved to absolute relative to root:
+    assert rb.model_cache_dir(tmp_path, {"HF_HOME": ".cache/huggingface"}) == (tmp_path / ".cache" / "huggingface").resolve()
 
 
 def test_default_cache_is_not_the_user_profile_cache():
@@ -33,7 +35,7 @@ def test_default_cache_is_not_the_user_profile_cache():
 
 def test_build_env_forces_cache_and_clears_offline():
     env = rb.build_env(Path("/c"), {"HF_HUB_OFFLINE": "1", "HF_HOME": "/other", "PATH": "p"})
-    assert env["HF_HOME"] == str(Path("/c"))
+    assert env["HF_HOME"] == str(Path("/c").resolve())
     assert "HF_HUB_OFFLINE" not in env
     assert env["PATH"] == "p"
 

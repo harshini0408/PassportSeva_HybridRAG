@@ -46,12 +46,20 @@ class BuildError(RuntimeError):
 
 def model_cache_dir(root: Path = REPO_ROOT, environ: dict[str, str] | None = None) -> Path:
     env = os.environ if environ is None else environ
-    return Path(env.get("HF_HOME") or root / ".cache" / "huggingface")
+    raw = env.get("HF_HOME")
+    if raw and raw.strip():
+        p = Path(raw.strip())
+        return p.resolve() if p.is_absolute() else (root / p).resolve()
+    return (root / ".cache" / "huggingface").resolve()
 
 
 def data_dir(root: Path = REPO_ROOT, environ: dict[str, str] | None = None) -> Path:
     env = os.environ if environ is None else environ
-    return Path(env.get("PASSPORT_DATA_DIR") or root / "data" / "passport_seva")
+    raw = env.get("PASSPORT_DATA_DIR")
+    if raw and raw.strip():
+        p = Path(raw.strip())
+        return p.resolve() if p.is_absolute() else (root / p).resolve()
+    return (root / "data" / "passport_seva").resolve()
 
 
 def check_dataset(data: Path) -> list[str]:
@@ -68,7 +76,7 @@ def pip_commands(python: str = sys.executable, requirements: Path = REQUIREMENTS
 
 def build_env(cache: Path, environ: dict[str, str] | None = None) -> dict[str, str]:
     env = dict(os.environ if environ is None else environ)
-    env["HF_HOME"] = str(cache)
+    env["HF_HOME"] = str(cache.resolve())
     env.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
     env.setdefault("TOKENIZERS_PARALLELISM", "false")
     env.pop("HF_HUB_OFFLINE", None)  # the download step needs the network
@@ -101,7 +109,7 @@ def build_index(env: dict[str, str]) -> None:
 
 def verify(cache: Path) -> dict[str, object]:
     """Load everything with Hugging Face OFFLINE; raise if anything is missing."""
-    os.environ["HF_HOME"] = str(cache)
+    os.environ["HF_HOME"] = str(cache.resolve())
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     if str(BACKEND_DIR) not in sys.path:

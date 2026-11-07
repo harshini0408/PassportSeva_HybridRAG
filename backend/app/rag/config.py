@@ -14,6 +14,22 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 DATA_DIR = REPO_ROOT / "data" / "passport_seva"
 
 
+def ensure_absolute_hf_home() -> None:
+    """Ensure HF_HOME is always an absolute path relative to REPO_ROOT if given as relative."""
+    raw = os.environ.get("HF_HOME")
+    if raw and raw.strip():
+        p = Path(raw.strip())
+        if not p.is_absolute():
+            os.environ["HF_HOME"] = str((REPO_ROOT / p).resolve())
+    else:
+        default_cache = REPO_ROOT / ".cache" / "huggingface"
+        if default_cache.exists():
+            os.environ["HF_HOME"] = str(default_cache.resolve())
+
+
+ensure_absolute_hf_home()
+
+
 @dataclass(frozen=True)
 class Settings:
     data_dir: Path = DATA_DIR
