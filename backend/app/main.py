@@ -45,6 +45,16 @@ def create_app(service: AskService | None = None, settings: AppSettings | None =
     app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"],
                        allow_headers=["Content-Type", "Accept"])
 
+    @app.get("/", tags=["system"], summary="API overview")
+    async def root() -> dict[str, str]:
+        return {
+            "name": "Passport Seva Application Guide API",
+            "version": "0.2.0",
+            "docs": "/docs",
+            "health": "/api/health",
+            "ask": "/api/ask",
+        }
+
     @app.get("/api/health", response_model=HealthResponse, tags=["system"],
              summary="Backend, index and Groq configuration status (never calls Groq)")
     async def health() -> HealthResponse:
