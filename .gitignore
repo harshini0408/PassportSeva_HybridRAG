@@ -1,0 +1,17 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# generated retrieval index (rebuild with: python -m app.rag.cli build)
+data/passport_seva/index/
+
+# frontend
+node_modules/
+

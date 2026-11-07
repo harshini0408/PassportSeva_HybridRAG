@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Passport Seva Application Guide</string>
+    <string name="title_activity_main">Passport Seva Application Guide</string>
+    <string name="package_name">com.passportseva.guide</string>
+    <string name="custom_url_scheme">com.passportseva.guide</string>
+</resources>

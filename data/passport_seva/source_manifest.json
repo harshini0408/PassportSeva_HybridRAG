@@ -1,0 +1,84 @@
+{
+  "dataset_id": "passport-seva-starter-v1",
+  "reviewed_on": "2026-11-06",
+  "scope": "Adults applying in India for an ordinary passport through the Normal route. Fresh applications, routine reissue, appointment navigation, and document advisor routing.",
+  "packaging": "Curated paraphrases of verified passages and official source URLs. Original HTML/PDF bytes and completed advisor results are not included.",
+  "sources": [
+    {
+      "source_id": "apply",
+      "title": "Process to apply for Fresh / Reissue Ordinary Passport",
+      "url": "https://passportindia.gov.in/psp/apply",
+      "kind": "web_guide",
+      "reviewed_on": "2026-11-06",
+      "notes": "Main workflow and portal labels. The numeric rescheduling limit conflicts with other official sources."
+    },
+    {
+      "source_id": "reissue",
+      "title": "Apply For Re-Issue of Ordinary Passport",
+      "url": "https://www.passportindia.gov.in/psp/ApplyReissue",
+      "kind": "web_guide",
+      "reviewed_on": "2026-11-06",
+      "notes": "Fresh versus Reissue for the passport category applied for, plus appointment visit."
+    },
+    {
+      "source_id": "appointment",
+      "title": "New Process for Online Appointment Booking",
+      "url": "https://passportindia.gov.in/AppOnlineProject/pdf/New_Online_Appointment_Booking_Process.pdf",
+      "kind": "pdf_guide",
+      "reviewed_on": "2026-11-06",
+      "notes": "Six-page walkthrough. Use section 3 on PDF pages 5–6 for the workflow. Treat its limit and screenshots as source-specific."
+    },
+    {
+      "source_id": "fresh_advisor",
+      "title": "Document Required for Fresh Passport",
+      "url": "https://www.passportindia.gov.in/psp/docAdvisor/attachmentAdvFreshInp",
+      "kind": "interactive_entry",
+      "reviewed_on": "2026-11-06",
+      "notes": "Selection screen only. Capture and validate a specific result before adding checklist evidence."
+    },
+    {
+      "source_id": "reissue_advisor",
+      "title": "Document Required for Re-issue of Passport",
+      "url": "https://services2.passportindia.gov.in/psp/docAdvisor/reissuePassport",
+      "kind": "interactive_entry",
+      "reviewed_on": "2026-11-06",
+      "notes": "Selection screen only. Capture and validate a specific result before adding checklist evidence."
+    },
+    {
+      "source_id": "reissue_reason",
+      "title": "Document Required for Re-issue of Passport — select applicable cases",
+      "url": "https://www.passportindia.gov.in/psp/docAdvisor/selectCaseReissue",
+      "kind": "interactive_entry",
+      "reviewed_on": "2026-11-06",
+      "notes": "Reason selection only, not the resulting checklist."
+    },
+    {
+      "source_id": "payment_faq",
+      "title": "Passport Seva Fee Payment FAQ",
+      "url": "https://www.passportindia.gov.in/psp/FaqFeePayment",
+      "kind": "web_faq",
+      "reviewed_on": "2026-11-06",
+      "notes": "Use for payment and booking navigation. The numeric rescheduling limit conflicts with the main application guide."
+    },
+    {
+      "source_id": "form_faq",
+      "title": "Passport Seva Application Form FAQ",
+      "url": "https://www.passportindia.gov.in/psp/FaqApplicationForm",
+      "kind": "web_faq",
+      "reviewed_on": "2026-11-06",
+      "notes": "General guidance on originals and self-attested copies. This is not a list of acceptable proofs."
+    }
+  ],
+  "known_conflicts": [
+    {
+      "id": "reschedule_limit",
+      "sources": [
+        "apply",
+        "appointment",
+        "payment_faq"
+      ],
+      "observed_disagreement": "The application guide states three reschedules outside Tatkaal, whereas the FAQ and PDF state two within a year of the first appointment.",
+      "handling": "Do not answer with a numeric limit. Mention the discrepancy if relevant and direct users to the attempts shown in their Passport Seva account."
+    }
+  ]
+}

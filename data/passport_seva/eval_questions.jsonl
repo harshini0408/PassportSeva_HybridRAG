@@ -1,0 +1,14 @@
+{"question": "How do I register on the portal and submit a fresh ordinary passport form?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["start_application"]}
+{"question": "When does the portal generate my ARN, and can I save the form partway through?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["arn"]}
+{"question": "My old ordinary passport expired two years ago. Should I apply under Fresh or Re-issue?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["fresh_or_reissue"]}
+{"question": "How do I use Pay and Schedule Appointment to pick a PSK or POPSK slot?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["book_appointment"]}
+{"question": "Something came up on my PSK appointment date. How can I shift my slot to another day?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["reschedule_portal", "reschedule_pdf"]}
+{"question": "What are the steps on the portal to reschedule a booked PSK appointment?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["reschedule_portal", "reschedule_pdf"]}
+{"question": "My fee was deducted online but no slot got booked. Should I check Track Payment Status or Schedule Appointment?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["paid_without_appointment"]}
+{"question": "Do I have to carry my original certificates to the PSK or are self-attested photocopies enough?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["bring_originals"]}
+{"question": "Which supporting proofs and papers do I need to bring for my passport?", "expected_behavior": "clarification", "acceptable_seed_record_ids": []}
+{"question": "What is the full document checklist for a Normal adult fresh passport?", "expected_behavior": "official_redirect", "acceptable_seed_record_ids": ["fresh_advisor_route"]}
+{"question": "What is the maximum number of times I am allowed to change my appointment date?", "expected_behavior": "conflicting_sources", "acceptable_seed_record_ids": ["reschedule_pdf"]}
+{"question": "Where is my passport right now and has Speed Post delivered it?", "expected_behavior": "live_status_redirect", "acceptable_seed_record_ids": []}
+{"question": "Can I apply for a Police Clearance Certificate (PCC) or a minor's passport under Tatkaal?", "expected_behavior": "out_of_scope", "acceptable_seed_record_ids": []}
+{"question": "Where in the advisor do I choose between a passport about to expire and one that already expired?", "expected_behavior": "official_redirect", "acceptable_seed_record_ids": ["reissue_expiry_route"]}

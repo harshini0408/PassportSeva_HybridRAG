@@ -1,0 +1,12 @@
+{"question": "How do I apply for my first ordinary passport?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["start_application"]}
+{"question": "What does ARN stand for?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["arn"]}
+{"question": "I already have an ordinary passport. Do I choose Fresh?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["fresh_or_reissue"]}
+{"question": "How do I book my visit after submitting the form?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["book_appointment"]}
+{"question": "I cannot make it on my booked day. Can I move it?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["reschedule_portal", "reschedule_pdf"]}
+{"question": "I paid the fee but there is no appointment. Where do I go?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["paid_without_appointment"]}
+{"question": "Should I bring originals or just copies?", "expected_behavior": "answer", "acceptable_seed_record_ids": ["bring_originals"]}
+{"question": "What exact documents do I need?", "expected_behavior": "clarification", "acceptable_seed_record_ids": []}
+{"question": "Give me the complete checklist for a Normal adult reissue.", "expected_behavior": "official_redirect", "acceptable_seed_record_ids": ["reissue_advisor_route"]}
+{"question": "How many times can I reschedule?", "expected_behavior": "conflicting_sources", "acceptable_seed_record_ids": ["reschedule_pdf"]}
+{"question": "Has my passport been dispatched today?", "expected_behavior": "live_status_redirect", "acceptable_seed_record_ids": []}
+{"question": "How do I apply for Tatkaal for a child?", "expected_behavior": "out_of_scope", "acceptable_seed_record_ids": []}
